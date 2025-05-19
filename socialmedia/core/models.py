@@ -10,13 +10,13 @@ class User(AbstractUser):
         validators=[FileExtensionValidator(['jpg', 'jpeg', 'png'])]
     )
     
-    # Add these to resolve the conflict
+    
     groups = models.ManyToManyField(
         'auth.Group',
         verbose_name='groups',
         blank=True,
         help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
-        related_name="core_user_groups",  # Unique related_name
+        related_name="core_user_groups",  
         related_query_name="user",
     )
     user_permissions = models.ManyToManyField(
@@ -24,7 +24,7 @@ class User(AbstractUser):
         verbose_name='user permissions',
         blank=True,
         help_text='Specific permissions for this user.',
-        related_name="core_user_permissions",  # Unique related_name
+        related_name="core_user_permissions",  
         related_query_name="user",
     )
     

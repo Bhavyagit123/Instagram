@@ -1,7 +1,90 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<div class="card">
+<style>
+    .edit-profile-container {
+        max-width: 600px;
+        margin: 40px auto;
+        background: white;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 0 8px palevioletred;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .edit-profile-container h2 {
+        font-family: 'Arial',sans-serif;
+        font-size: 28px;
+        margin-bottom: 30px;
+        text-align: center;
+        color: #262626;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #555;
+    }
+
+    input[type="email"],
+    textarea,
+    input[type="file"] {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        background: #fafafa;
+        box-sizing: border-box;
+    }
+
+    input[type="file"] {
+        padding: 6px;
+        background: #fff;
+    }
+
+    .btn-primary {
+        background-color: #0095f6;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        width: 100%;
+        transition: background 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #0077cc;
+    }
+
+    .current-pic {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 8px;
+    }
+
+    .current-pic img {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1px solid #ddd;
+    }
+
+    .current-pic a {
+        font-size: 14px;
+    }
+</style>
+
+<div class="edit-profile-container">
     <h2>Edit Profile</h2>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
@@ -16,9 +99,14 @@
         <div class="form-group">
             <label for="profile_pic">Profile Picture</label>
             <input type="file" id="profile_pic" name="profile_pic" accept="image/jpeg,image/png">
-            <small>Current: <a href="{{ user.profile_pic.url }}" target="_blank">{{ user.profile_pic.name }}</a></small>
+            {% if user.profile_pic %}
+            <div class="current-pic">
+                <img src="{{ user.profile_pic.url }}" alt="Profile Pic">
+                <a href="{{ user.profile_pic.url }}" target="_blank">{{ user.profile_pic.name }}</a>
+            </div>
+            {% endif %}
         </div>
-        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <button type="submit" class="btn-primary">Save Changes</button>
     </form>
 </div>
 {% endblock %}

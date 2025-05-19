@@ -1,36 +1,129 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<div class="card">
-    <h2>Search Users</h2>
-    <form method="GET" action="{% url 'search' %}">
-        <div style="display: flex;">
-            <input type="text" name="q" value="{{ query }}" placeholder="Search by username or email" style="flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px 0 0 4px;">
-            <button type="submit" class="btn btn-primary" style="border-radius: 0 4px 4px 0;">Search</button>
-        </div>
-    </form>
-</div>
+<style>
+    .search-container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        box-shadow: 0 0 8px palevioletred;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
 
-{% if query %}
-    <div class="card">
-        <h3>Results for "{{ query }}"</h3>
-        
-        {% if users %}
-            <ul style="list-style: none;">
+    .search-container h2 {
+        font-family: 'Arial',sans-serif;
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #262626;
+    }
+
+    .search-form {
+        display: flex;
+        gap: 0;
+    }
+
+    .search-form input {
+        flex: 1;
+        padding: 10px 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px 0 0 8px;
+        font-size: 14px;
+    }
+
+    .search-form button {
+        padding: 10px 16px;
+        border: none;
+        background-color: #0095f6;
+        color: white;
+        font-weight: 500;
+        font-size: 14px;
+        border-radius: 0 8px 8px 0;
+        cursor: pointer;
+    }
+
+    .search-results {
+        margin-top: 20px;
+    }
+
+    .user-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .user-item img {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .user-info {
+        margin-left: 12px;
+        flex: 1;
+    }
+
+    .user-info a {
+        font-weight: 500;
+        color: #262626;
+        text-decoration: none;
+    }
+
+    .user-info p {
+        font-size: 13px;
+        color: #999;
+        margin: 2px 0 0;
+    }
+
+    .view-btn {
+        padding: 6px 12px;
+        background-color: transparent;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 13px;
+        cursor: pointer;
+        color: #262626;
+        transition: background-color 0.2s;
+        text-decoration: none;
+    }
+
+    .view-btn:hover {
+        background-color: #fafafa;
+    }
+
+</style>
+
+<div class="search-container">
+    <h2>Search</h2>
+    <form method="GET" action="{% url 'search' %}" class="search-form">
+        <input type="text" name="q" value="{{ query }}" placeholder="Search by username or email" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if query %}
+        <div class="search-results">
+            <h3 style="font-size: 16px; margin-bottom: 12px;">Results for "{{ query }}"</h3>
+
+            {% if users %}
                 {% for user in users %}
-                    <li style="padding: 10px 0; border-bottom: 1px solid #eee; display: flex; align-items: center;">
-                        <img src="{{ user.profile_pic.url }}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-                        <div style="margin-left: 10px; flex: 1;">
-                            <a href="{% url 'profile' user.username %}"><strong>{{ user.username }}</strong></a>
-                            <p style="margin: 0; color: #666;">{{ user.email }}</p>
+                    <div class="user-item">
+                        <img src="{{ user.profile_pic.url }}" alt="{{ user.username }}">
+                        <div class="user-info">
+                            <a href="{% url 'profile' user.username %}">{{ user.username }}</a>
+                            <p>{{ user.email }}</p>
                         </div>
-                        <a href="{% url 'profile' user.username %}" class="btn btn-primary">View Profile</a>
-                    </li>
+                        <a href="{% url 'profile' user.username %}" class="view-btn">View</a>
+                    </div>
                 {% endfor %}
-            </ul>
-        {% else %}
-            <p>No users found.</p>
-        {% endif %}
-    </div>
-{% endif %}
+            {% else %}
+                <p>No users found.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

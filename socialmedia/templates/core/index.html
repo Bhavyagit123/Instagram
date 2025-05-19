@@ -1,16 +1,16 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<div class="card">
-    <h2>Welcome to Social Media</h2>
-    <p>See what's happening with your friends</p>
+<div class="card"style="box-shadow: 0 0 8px palevioletred; padding: 16px; border-radius: 8px;">
+    <h2>Welcome to Instagram <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png" alt="Logo" style="height: 24px; vertical-align: middle; margin-right: 8px;"> </h2>
+    <p>Follow people to see photos and videos they share</p>
 </div>
 
 {% for post in posts %}
     {% include 'core/_post.html' %}
 {% empty %}
     <div class="card">
-        <p>No posts to show. Follow some people or create your own post!</p>
+        <p>There are no posts yet. Start following people or share your first photo to get started!</p>
     </div>
 {% endfor %}
 {% endblock %}

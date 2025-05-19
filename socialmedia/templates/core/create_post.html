@@ -1,27 +1,76 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<div class="card">
-    <h2>Create Post</h2>
+<style>
+    .create-post-container {
+        max-width: 500px;
+        margin: 40px auto;
+        background-color: #fff;
+        border: 1px solid #dbdbdb;
+        border-radius: 12px;
+        padding: 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        box-shadow: 0 0 8px palevioletred;
+    }
+
+    .create-post-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 22px;
+        font-weight: 600;
+        color: #262626;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group textarea {
+        width: 100%;
+        border: 1px solid #dbdbdb;
+        border-radius: 8px;
+        padding: 12px;
+        resize: none;
+        font-size: 14px;
+        color: #262626;
+    }
+
+    .form-group input[type="file"] {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+        color: #555;
+    }
+
+    .btn-post {
+        width: 100%;
+        background-color: #0095f6;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-post:hover {
+        background-color: #007cd1;
+    }
+</style>
+
+<div class="create-post-container">
+    <h2>Create New Post</h2>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
-            <label for="content">What's on your mind?</label>
-            <textarea id="content" name="content" rows="3" required></textarea>
+            <textarea id="content" name="content" rows="3" placeholder="Write a caption..." required></textarea>
         </div>
         <div class="form-group">
-            <label for="image">Image (optional)</label>
-            <input type="file" id="image" name="image" accept="image/jpeg,image/png">
+            <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/jpg" required>
         </div>
-        <div class="form-group">
-            <label for="privacy">Privacy</label>
-            <select id="privacy" name="privacy">
-                <option value="public">Public</option>
-                <option value="friends">Friends Only</option>
-                <option value="private">Private</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Post</button>
+        <button type="submit" class="btn-post">Share</button>
     </form>
 </div>
 {% endblock %}

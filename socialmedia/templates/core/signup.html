@@ -1,35 +1,126 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<div class="card">
-    <h2>Sign Up</h2>
+
+<style>
+    .signup-container {
+        max-width: 380px;
+        margin: 40px auto;
+        padding: 30px 30px;
+        background: #ffffff;
+        border: 1px solid #dbdbdb;
+        border-radius: 15px;
+        box-shadow :0 0 8px palevioletred; 
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .signup-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 22px;
+        font-weight: 600;
+        color: #262626;
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 500;
+        font-size: 14px;
+        color: #4a4a4a;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="password"],
+    .form-group input[type="file"],
+    .form-group textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #dbdbdb;
+        border-radius: 6px;
+        font-size: 14px;
+        background-color: #fafafa;
+        transition: border-color 0.2s ease;
+    }
+
+    .form-group textarea {
+        resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: #a8a8a8;
+        outline: none;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 10px;
+        background-color: #0095f6;
+        color: #ffffff;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .btn-submit:hover {
+        background-color: #007ac6;
+    }
+
+    .signup-container p {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 13px;
+    }
+
+    .signup-container a {
+        color: #0095f6;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .signup-container a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="signup-container">
+    <h2>Create Your Account</h2>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required>
+
+            <input type="text" id="username" name="username" placeholder="Enter Username" required>
         </div>
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
+            
+            <input type="email" id="email" name="email"  placeholder="Enter email" required>
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+            
+            <input type="password" id="password" name="password"  placeholder="Enter Password"required>
         </div>
         <div class="form-group">
-            <label for="password2">Confirm Password</label>
-            <input type="password" id="password2" name="password2" required>
+            
+            <input type="password" id="password2" name="password2"  placeholder="Enter password" required>
         </div>
         <div class="form-group">
-            <label for="bio">Bio</label>
-            <textarea id="bio" name="bio" rows="3"></textarea>
+            
+            <textarea id="bio" name="bio" rows="3" placeholder="Tell us a bit about yourself..."></textarea>
         </div>
         <div class="form-group">
-            <label for="profile_pic">Profile Picture</label>
+            
             <input type="file" id="profile_pic" name="profile_pic" accept="image/jpeg,image/png">
         </div>
-        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <button type="submit" class="btn-submit">Sign Up</button>
     </form>
     <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
 </div>

@@ -192,7 +192,7 @@
                 <div class="friend-actions">
                     <form method="POST" action="{% url 'remove_friend' friend.username %}">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-danger">Remove Friend</button>
+                        <button type="submit" class="btn btn-danger">UnFriend</button>
                     </form>
                 </div>
                 {% endif %}

@@ -2,56 +2,63 @@
 
 {% block content %}
 <div class="container">
-    <h1>Friend Requests</h1>
-    
-    <!-- Received Requests Section -->
+    <h1 style="margin-bottom:20px;">Friend Requests</h1>
+    <div class="requests-section" style="box-shadow: 0 0 8px palevioletred; padding: 16px; border-radius: 8px; margin-bottom: 16px; background-color: #fff;">  
+        
     <div class="requests-section">
-        <h2>Received Requests</h2>
+       
+            <h2>Received Requests</h2>
         {% if received_requests %}
             <div class="request-list">
+                    
                 {% for request in received_requests %}
                 <div class="request-card">
+                        
                     <div class="request-user">
-                        <img src="{{ request.from_user.profile_pic.url }}" class="profile-pic-medium">
+
+                        <img src="{{ request.from_user.profile_pic.url }}" class="profile-pic-medium" alt="{{ request.from_user.username }}">
                         <div class="user-info">
                             <a href="{% url 'profile' request.from_user.username %}">
                                 <h3>{{ request.from_user.username }}</h3>
                             </a>
-                            <small>{{ request.created_at|timesince }} ago</small>
+                            <small>Requested {{ request.created_at|timesince }} ago</small>
                         </div>
                     </div>
                     <div class="request-actions">
-                        <form method="POST" action="{% url 'accept_friend_request' request.id %}">
+                        <form method="POST" action="{% url 'accept_follow_request' request.id %}">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-success">Accept</button>
+                            <button type="submit" class="btn btn-primary">Confirm</button>
                         </form>
-                        <form method="POST" action="{% url 'reject_friend_request' request.id %}">
+                        <form method="POST" action="{% url 'reject_follow_request' request.id %}">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-danger">Reject</button>
+                            <button type="submit" class="btn btn-secondary">Delete</button>
                         </form>
                     </div>
                 </div>
                 {% endfor %}
             </div>
         {% else %}
-            <p>No pending friend requests.</p>
+            <p>No new follow requests.</p>
         {% endif %}
     </div>
+
     
-    <!-- Sent Requests Section -->
     <div class="requests-section">
-        <h2>Sent Requests</h2>
+
+            <h2>Requests You've Sent</h2>
+            
         {% if sent_requests %}
             <div class="request-list">
                 {% for request in sent_requests %}
-                <div class="request-card">
+                <div class="request-card shadow-card">
+
                     <div class="request-user">
-                        <img src="{{ request.to_user.profile_pic.url }}" class="profile-pic-medium">
+                        <img src="{{ request.to_user.profile_pic.url }}" class="profile-pic-medium" alt="{{ request.to_user.username }}">
                         <div class="user-info">
                             <a href="{% url 'profile' request.to_user.username %}">
                                 <h3>{{ request.to_user.username }}</h3>
                             </a>
-                            <small>{{ request.created_at|timesince }} ago</small>
+                            <small>Requested {{ request.created_at|timesince }} ago</small>
                         </div>
                     </div>
                     <div class="request-status">
@@ -61,8 +68,19 @@
                 {% endfor %}
             </div>
         {% else %}
-            <p>No sent friend requests.</p>
+            <p>You haven’t sent any follow requests.</p>
         {% endif %}
     </div>
 </div>
 {% endblock %}
+
+<style>
+
+.shadow-card {
+    box-shadow: 0 0 8px palevioletred;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    background-color: #fff;
+}
+</style>

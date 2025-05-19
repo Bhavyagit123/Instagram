@@ -1,6 +1,8 @@
 <nav class="navbar">
-    <div>
-        <a href="{% url 'index' %}">Social Media</a>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <a href="{% url 'index' %}" class="brand-text">Instagram</a>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png" alt="Logo" style="height: 24px; vertical-align: middle; margin-right: 8px;">
+        
     </div>
     <div>
         {% if user.is_authenticated %}
